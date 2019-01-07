@@ -13,7 +13,7 @@ class AddTableMainToBd extends Migration
      */
     public function up()
     {
-        Schema::table('bd', function (Blueprint $table) {
+        Schema::create('weather_report', function (Blueprint $table) {
             $table->increments('id');
             $table->char('temperature');
             $table->char('maxtemperature');
@@ -25,6 +25,7 @@ class AddTableMainToBd extends Migration
             $table->char('precipitation_type');
             $table->char('precipitation_size');
             $table->char('data');
+            $table->timestamps();
         });
     }
 
@@ -35,8 +36,6 @@ class AddTableMainToBd extends Migration
      */
     public function down()
     {
-        Schema::table('bd', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('weather_report');
     }
 }
