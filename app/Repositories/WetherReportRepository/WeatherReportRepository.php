@@ -37,6 +37,8 @@ class WeatherReportRepository implements WeatherReportRepositoryInterface
         $this->weatherReport->setPrecipitationType($data['precipitation_type']);
         $this->weatherReport->setPrecipitationSize($data['precipitation_size']);
         $this->weatherReport->setData($data['data']);
+        $this->weatherReport->setCountryCode($data['country_code']);
+        $this->weatherReport->setCity($data['city']);
         $this->weatherReport->save();
     }
 
