@@ -32,7 +32,7 @@ class WeatherReport extends Model
     /**
      * @var
      */
-    private $maxtemperature;
+    private $max_temperature;
     /**
      * @var
      */
@@ -83,15 +83,15 @@ class WeatherReport extends Model
      */
     public function getMaxtemperature()
     {
-        return $this->maxtemperature;
+        return $this->max_temperature;
     }
 
     /**
-     * @param mixed $maxtemperature
+     * @param mixed $max_temperature
      */
-    public function setMaxtemperature($maxtemperature): void
+    public function setMaxtemperature($max_temperature): void
     {
-        $this->maxtemperature = $maxtemperature;
+        $this->max_temperature = $max_temperature;
     }
 
     /**

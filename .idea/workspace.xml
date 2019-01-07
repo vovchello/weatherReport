@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75bf316f-cb88-4a0f-82a1-ff85806d03c1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,20 +44,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
-              <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+              <caret line="15" column="56" lean-forward="true" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+            <state>
+              <caret line="62" column="18" lean-forward="true" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -88,8 +90,8 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php" />
         <option value="$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php" />
       </list>
     </option>
   </component>
@@ -271,12 +273,12 @@
       <workItem from="1545914060770" duration="5754000" />
       <workItem from="1546421885671" duration="3923000" />
       <workItem from="1546506208435" duration="7684000" />
-      <workItem from="1546853708413" duration="1671000" />
+      <workItem from="1546853708413" duration="2474000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24920000" />
+    <option name="totallyTimeSpent" value="25723000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -367,17 +369,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        <state>
+          <caret line="62" column="18" lean-forward="true" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/WeatherReport/WeatherReport.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_27_141112_add_table_main_to_bd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        <state relative-caret-position="195">
+          <caret line="15" column="56" lean-forward="true" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
         </state>
       </provider>
     </entry>
