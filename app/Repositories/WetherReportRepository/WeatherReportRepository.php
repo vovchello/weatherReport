@@ -28,7 +28,7 @@ class WeatherReportRepository implements WeatherReportRepositoryInterface
 
     public function save($data): void
     {
-        $this->weatherReport->setTemperature($data['temperature'];
+        $this->weatherReport->setTemperature($data['temperature']);
         $this->weatherReport->setMaxtemperature($data['max_temperature']);
         $this->weatherReport->setMinTemperature($data['min_temperature']);
         $this->weatherReport->setWeather($data['weather']);

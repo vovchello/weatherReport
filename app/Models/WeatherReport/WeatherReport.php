@@ -18,6 +18,37 @@ use Illuminate\Database\Eloquent\Model;
 class WeatherReport extends Model
 {
     /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountryCode()
+    {
+        return $this->country_code;
+    }
+
+    /**
+     * @param mixed $country_code
+     */
+    public function setCountryCode($country_code): void
+    {
+        $this->country_code = $country_code;
+    }
+    /**
      * @var string
      */
     protected $table = 'weather_report';
@@ -25,6 +56,14 @@ class WeatherReport extends Model
      * @var array
      */
     protected $guarded = ['id'];
+    /**
+     * @var
+     */
+    private $city;
+    /**
+     * @var
+     */
+    private $country_code;
     /**
      * @var
      */
