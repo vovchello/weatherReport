@@ -23,13 +23,4 @@ class HomeController extends Controller
     {
 
         $this->request->getWeather('ca','Ottawa');
-//        $requiest = $this->guzzle->request('get','api.openweathermap.org/data/2.5/forecast',[
-//            'query' =>[
-//                'q' => 'Ottawa, ca',
-//                'appid' => '02c10ef435d6119a32450932ac127016'
-//            ]
-//        ]);
-//        $data = json_decode($requiest->getBody()->getContents());
-//        dd($data->list);
-    }
 }
