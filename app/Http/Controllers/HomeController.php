@@ -2,25 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\WeatherService\WeatherService;
+use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 
 
+/**
+ * Class HomeController
+ * @package App\Http\Controllers
+ */
 class HomeController extends Controller
 {
-    private $request;
+    /**
+     * @var WeatherServiceInterface
+     */
+    private $weatherService;
 
     /**
      * HomeController constructor.
      * @param $guzzle
      */
-    public function __construct(WeatherService $request)
+    public function __construct(WeatherServiceInterface $weatherService)
     {
-        $this->request = $request;
+        $this->weatherService = $weatherService;
     }
 
 
+    /**
+     *
+     */
     public function index()
     {
-
-        $this->request->getWeather('ca','Ottawa');
+        $data = $this->weatherService->getWeather('ca', 'Ottawa');
+    }
 }

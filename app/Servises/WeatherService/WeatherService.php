@@ -39,7 +39,8 @@ class WeatherService implements WeatherServiceInterface
      */
     public function getWeather($country, $city)
     {
-        $this->getRequiest($country,$city);
+        $weather = $this->getRequest($country,$city);
+        return $weather;
     }
 
 
@@ -49,7 +50,7 @@ class WeatherService implements WeatherServiceInterface
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getRequiest($country, $city)
+    private function getRequest($country, $city)
     {
         $request = $this->client->request('get',$this->getURI(),[
             'query' =>[
