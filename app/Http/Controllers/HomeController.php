@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\RequestServies\RequestService;
+use App\Servises\WeatherService\WeatherService;
 
 
 class HomeController extends Controller
@@ -13,7 +13,7 @@ class HomeController extends Controller
      * HomeController constructor.
      * @param $guzzle
      */
-    public function __construct(RequestService $request)
+    public function __construct(WeatherService $request)
     {
         $this->request = $request;
     }
@@ -22,7 +22,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $this->request->getRequiest();
+        $this->request->getWeather('ca','Ottawa');
 //        $requiest = $this->guzzle->request('get','api.openweathermap.org/data/2.5/forecast',[
 //            'query' =>[
 //                'q' => 'Ottawa, ca',
