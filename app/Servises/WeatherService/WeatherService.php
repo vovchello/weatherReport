@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: panda
- * Date: 08.01.19
- * Time: 13:30
- */
 
 namespace App\Servises\WeatherService;
 
@@ -88,6 +82,7 @@ class WeatherService implements WeatherServiceInterface
         return json_decode($request->getBody()->getContents());
     }
 
+
     private function getFormatedWeather($forecasts)
     {
         $collections =collect();
@@ -107,5 +102,4 @@ class WeatherService implements WeatherServiceInterface
         }
         return $collections;
     }
-
 }

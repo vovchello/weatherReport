@@ -15,9 +15,11 @@ class AddTableMainToBd extends Migration
     {
         Schema::create('weather_report', function (Blueprint $table) {
             $table->increments('id');
+            $table->char('city');
+            $table->char('country_code');
             $table->char('temperature');
-            $table->char('maxtemperature');
-            $table->char('min temperature');
+            $table->char('max_temperature');
+            $table->char('min_temperature');
             $table->char('weather');
             $table->char('clouds');
             $table->char('wind_speed');
