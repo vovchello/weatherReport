@@ -32,5 +32,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = $this->weatherService->getWeather('ca', 'Ottawa');
+
+        return view('base.home');
     }
 }
