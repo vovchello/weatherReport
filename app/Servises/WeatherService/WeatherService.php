@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: panda
- * Date: 08.01.19
- * Time: 13:30
- */
 
 namespace App\Servises\WeatherService;
 
@@ -40,6 +34,7 @@ class WeatherService implements WeatherServiceInterface
     public function getWeather($country, $city)
     {
         $weather = $this->getRequest($country,$city);
+        $weather = $this->getFormatedWeather($weather->list);
         return $weather;
     }
 
@@ -88,4 +83,23 @@ class WeatherService implements WeatherServiceInterface
     }
 
 
+    private function getFormatedWeather($forecasts)
+    {
+        $collections =collect();
+        foreach($forecasts as $forecast){
+            $collection = collect([
+                'temperature' =>$forecast->main->temp ,
+                'max_temperature' => $forecast->main->temp_max,
+                'min_temperature' => $forecast->main->temp_min,
+                'weather' => $forecast->weather[0]->main,
+                'wind_speed' => $forecast->wind->speed,
+                'clouds' => $forecast->clouds->all,
+                'precipitation_type' => $forecast,
+                'precipitation_size' =>$forecast ,
+                'data' => $forecast->dt_txt,
+            ]);
+            $collections->push($collection->all());
+        }
+        return $collections;
+    }
 }
