@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCityCodes extends Migration
+class CreateForeignKeyForCollumCityCodeInTableCityCode extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateTableCityCodes extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('country');
-            $table->char('city_code');
-            $table->timestamps();
+        Schema::table('weather_report', function (Blueprint $table) {
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateTableCityCodes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::table('weather_report', function (Blueprint $table) {
+            $table->dropForeign('weather_report_city_id_foreign');
+        });
     }
 }

@@ -14,7 +14,7 @@ class AddToTheTableWeatherReportCcityColum extends Migration
     public function up()
     {
         Schema::table('weather_report', function (Blueprint $table) {
-            $table->integer('city_code');
+            $table->unsignedInteger('city_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddToTheTableWeatherReportCcityColum extends Migration
     public function down()
     {
         Schema::table('weather_report', function (Blueprint $table) {
-            $table->dropColumn('city_code');
+            $table->dropColumn('city_id');
         });
     }
 }
