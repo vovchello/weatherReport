@@ -3,7 +3,10 @@
 @section('content')
     <div class="container">
         @foreach($cities as $city)
-            {{$city['name']}}
+            {{dd($city)}}
+            @foreach($city as $weather)
+                {{$weather['city']}}
+            @endforeach
         @endforeach
     </div>
 @endsection

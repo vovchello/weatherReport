@@ -92,8 +92,8 @@ class WeatherService implements WeatherServiceInterface
     private function parseWeather($data):Collection
     {
         $dataArray = $data->list;
-        $city = $data->city->name;
-        $weatherCollection = collect();
+        $city['city'] = $data->city->name;
+        $weatherCollection = collect($city);
         foreach($dataArray as $item){
             $weather['temperature'] = $item->main->temp;
             $weather['max_temperature'] = $item->main->temp_max;
@@ -103,7 +103,6 @@ class WeatherService implements WeatherServiceInterface
             $weather['clouds'] = $item->clouds->all;
             $weather['snow'] = $item->snow;
             $weather['data'] = $item->dt_txt;
-            $weather['city'] = $city;
             $weatherCollection->push($weather);
         }
         return $weatherCollection;

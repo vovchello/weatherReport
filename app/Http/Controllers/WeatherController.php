@@ -28,18 +28,13 @@ class WeatherController
     {
         $validated = $request->validated();
         $cities = $this->city->findCity($validated['city']);
+        $cityWeather = collect();
         foreach($cities as $city) {
             $weather = $this->weatherService->getWeather($city['country'],$city['name']);
+            $cityWeather->push($weather);
         }
-
-        dd($weather);
-//        if ($city->count() === 1) {
-//            $this->weatherService->getWeather($city['country'],$city['name']);
-//        } else {
-//            return view('base.city',[
-//                'cities' => $city
-//            ]);
-//        }
+        return view('base.city',[
+            'cities' => $cityWeather
+        ]);
     }
-
 }
