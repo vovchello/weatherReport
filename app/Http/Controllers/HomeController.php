@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 
 
@@ -16,13 +17,16 @@ class HomeController extends Controller
      */
     private $weatherService;
 
+    private $jsonSservice;
+
     /**
      * HomeController constructor.
      * @param $guzzle
      */
-    public function __construct(WeatherServiceInterface $weatherService)
+    public function __construct(WeatherServiceInterface $weatherService, JsonSserviceInterface $jsonSservice)
     {
         $this->weatherService = $weatherService;
+        $this->jsonSservice = $jsonSservice;
     }
 
 
@@ -32,7 +36,6 @@ class HomeController extends Controller
     public function index()
     {
         $data = $this->weatherService->getWeather('ca', 'Ottawa');
-
         return view('base.home');
     }
 }
