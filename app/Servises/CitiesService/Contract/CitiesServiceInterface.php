@@ -11,5 +11,5 @@ namespace App\Servises\CitiesService\Contract;
 
 interface CitiesServiceInterface
 {
-
+    public function findCity(string $data):array;
 }

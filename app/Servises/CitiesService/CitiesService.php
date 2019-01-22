@@ -9,7 +9,18 @@
 namespace App\Servises\CitiesService;
 
 
-class CitiesService
+use App\Servises\CitiesService\Contract\CitiesServiceInterface;
+
+class CitiesService implements CitiesServiceInterface
 {
 
+    public function findCity(string $data): array
+    {
+
+    }
+
+
+
+    $cities = $this->jsonSservice->getFile($path);
+    dd($cities->where('name','Hurzuf'));
 }
