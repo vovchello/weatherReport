@@ -41,7 +41,7 @@ class WeatherService implements WeatherServiceInterface
     public function getWeather($country, $city)
     {
         $weather = $this->getRequest($country,$city);
-        $weather = $this->parseWeather($weather);
+        $weather = $this->parseResponse($weather);
         return $weather;
     }
 
@@ -89,23 +89,41 @@ class WeatherService implements WeatherServiceInterface
         return json_decode($request->getBody()->getContents());
     }
 
-    private function parseWeather($data):Collection
+    private function parseCity($city)
     {
-        $dataArray = $data->list;
-        $city['city'] = $data->city->name;
-        $weatherCollection = collect($city);
-        foreach($dataArray as $item){
+        return collect([
+            'name' => $city->name,
+            'country' => $city->country,
+            'lat' => $city->coord->lat,
+            'lon' => $city->coord->lon
+        ]);
+    }
+
+    private function parseResponse($data)
+    {
+        $result['city'] =collect($this->parseCity($data->city));
+        $result['weather'] = $this->parseWeather($data->list);
+        $result = collect($result);
+        dd($result);
+        return $result;
+    }
+
+    private function parseWeather($data)
+    {
+        foreach($data as $item){
             $weather['temperature'] = $item->main->temp;
             $weather['max_temperature'] = $item->main->temp_max;
             $weather['min_temperature'] = $item->main->temp_min;
             $weather['weather'] = $item->weather[0]->main;
-            $weather['wind_speed'] = $item->wind->speed;
-            $weather['clouds'] = $item->clouds->all;
-            $weather['snow'] = $item->snow;
+            $weather['wind_speed'] = isset($item->wind->speed) ? $item->wind->speed : null;
+            $weather['wind_deg'] = isset($item->wind->deg) ? $item->wind->deg : null;
+            $weather['clouds'] =  isset($item->clouds->all) ? $item->clouds->all : null;
+            $weather['snow'] = isset($item->snow) ? $item->snow : null;
+            $weather['rain'] = isset($item->rain) ? $item->rain : null;
             $weather['data'] = $item->dt_txt;
-            $weatherCollection->push($weather);
+            $result[]= collect($weather);
         }
-        return $weatherCollection;
+        return $result;
     }
 
 
