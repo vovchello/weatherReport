@@ -12,6 +12,7 @@ namespace App\Servises\WeatherService;
 
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 /**
  * Class WeatherService
@@ -40,6 +41,7 @@ class WeatherService implements WeatherServiceInterface
     public function getWeather($country, $city)
     {
         $weather = $this->getRequest($country,$city);
+        $weather = $this->parseWeather($weather);
         return $weather;
     }
 
@@ -85,6 +87,26 @@ class WeatherService implements WeatherServiceInterface
     private function getDecodeRequest($request)
     {
         return json_decode($request->getBody()->getContents());
+    }
+
+    private function parseWeather($data):Collection
+    {
+        $dataArray = $data->list;
+        $city = $data->city->name;
+        $weatherCollection = collect();
+        foreach($dataArray as $item){
+            $weather['temperature'] = $item->main->temp;
+            $weather['max_temperature'] = $item->main->temp_max;
+            $weather['min_temperature'] = $item->main->temp_min;
+            $weather['weather'] = $item->weather[0]->main;
+            $weather['wind_speed'] = $item->wind->speed;
+            $weather['clouds'] = $item->clouds->all;
+            $weather['snow'] = $item->snow;
+            $weather['data'] = $item->dt_txt;
+            $weather['city'] = $city;
+            $weatherCollection->push($weather);
+        }
+        return $weatherCollection;
     }
 
 
