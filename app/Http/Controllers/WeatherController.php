@@ -24,12 +24,15 @@ class WeatherController
     {
         $validated = $request->validated();
         $city = $this->city->findCity($validated['city']);
-        if ($city->count() === 1){
-            return redirect();
-        } else{
-            return redirect('');
+        if ($city->count() === 1) {
+            return view('',[
+                'city' => $city
+            ]);
+        } else {
+            return view('',[
+                'cities' => $city
+            ]);
         }
-        dd($city);
     }
 
 }
