@@ -1,18 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: panda
- * Date: 26.01.19
- * Time: 11:57
- */
 
 namespace App\Servises\RedisRepository;
 
 
+use App\Servises\RedisRepository\Contracts\RedisRepositoryInterface;
 use Illuminate\Support\Facades\Redis;
-//use Predis\Client;
 
-class RedisRepository
+class RedisRepository implements RedisRepositoryInterface
 {
     private $redis;
 
@@ -23,6 +17,16 @@ class RedisRepository
     public function __construct()
     {
         $this->redis = Redis::connection();
+    }
+
+    public function getWeather(string $country, string $city)
+    {
+        // TODO: Implement getWeather() method.
+    }
+
+    public function isExists(string $field)
+    {
+        // TODO: Implement isExists() method.
     }
 
 
