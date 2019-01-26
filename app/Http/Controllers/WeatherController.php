@@ -6,7 +6,6 @@ use App\Servises\CitiesService\Contract\CitiesServiceInterface;
 use App\Servises\RedisRepository\RedisRepository;
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use App\Validators\Request\SearchWeatherRequest;
-use Illuminate\Support\Collection;
 
 class WeatherController
 {
@@ -28,15 +27,13 @@ class WeatherController
         $this->redisRepository = $redisRepository;
     }
 
+
+
     public function index(SearchWeatherRequest $request)
     {
         $validated = $request->validated();
         $cities = $this->city->findCity($validated['city']);
-        $cityWeather = collect();
-        foreach($cities as $city) {
-            $weather = $this->weatherService->getWeather($city['country'],$city['name']);
-            $cityWeather->push($weather);
-        }
+        $cityWeather = $this->weatherService->getWeather($cities);
         return view('base.city',[
             'cities' => $cityWeather
         ]);

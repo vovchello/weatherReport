@@ -38,7 +38,17 @@ class WeatherService implements WeatherServiceInterface
      * @param $country
      * @param $city
      */
-    public function getWeather($country, $city)
+    public function getWeather($cities)
+    {
+        $cityWeather = collect();
+        foreach($cities as $city) {
+            $weather = $this->getWeatherByCity($city['country'],$city['name']);
+            $cityWeather->push($weather);
+        }
+        return $cityWeather;
+    }
+
+    private function getWeatherByCity($country,$city)
     {
         $weather = $this->getRequest($country,$city);
         $weather = $this->parseResponse($weather);

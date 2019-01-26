@@ -11,5 +11,5 @@ namespace App\Servises\WeatherService\Contacts;
 
 interface WeatherServiceInterface
 {
-        public function getWeather($country, $city);
+        public function getWeather($cities);
 }
