@@ -104,7 +104,6 @@ class WeatherService implements WeatherServiceInterface
         $result['city'] =collect($this->parseCity($data->city));
         $result['weather'] = $this->parseWeather($data->list);
         $result = collect($result);
-        dd($result);
         return $result;
     }
 
