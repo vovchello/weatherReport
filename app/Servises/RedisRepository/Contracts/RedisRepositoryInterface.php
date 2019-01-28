@@ -11,7 +11,6 @@ namespace App\Servises\RedisRepository\Contracts;
 
 interface RedisRepositoryInterface
 {
-    public function getWeather(string $country,string $city);
+    public function getWeather($cities);
 
-    public function isExists(string $field);
 }

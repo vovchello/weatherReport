@@ -33,9 +33,17 @@ class WeatherController
     {
         $validated = $request->validated();
         $cities = $this->city->findCity($validated['city']);
-        $cityWeather = $this->weatherService->getWeather($cities);
+        $cityWeather = $this->redisRepository->getWeather($cities);
+        $state = 'from Redis';
+        if($cityWeather === null){
+            $cityWeather = $this->weatherService->getWeather($cities);
+            $this->redisRepository->addWeather($cityWeather);
+            $state = 'from api';
+        }
+        dd($state);
         return view('base.city',[
-            'cities' => $cityWeather
+            'cities' => $cityWeather,
+            'state' => $state
         ]);
     }
 }

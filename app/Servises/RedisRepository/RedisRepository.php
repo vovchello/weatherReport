@@ -19,15 +19,47 @@ class RedisRepository implements RedisRepositoryInterface
         $this->redis = Redis::connection();
     }
 
-    public function getWeather(string $country, string $city)
+    public function getWeather($cities)
     {
-        // TODO: Implement getWeather() method.
+        foreach($cities as $city) {
+            $weather = $this->getWeatherByCity($city['country'],$city['name']);
+
+        }
+        return $weather;
     }
 
-    public function isExists(string $field)
+    /**
+     * @param $country
+     * @param $city
+     * @return \Illuminate\Support\Collection|null
+     */
+    private function getWeatherByCity($country, $city)
     {
-        // TODO: Implement isExists() method.
+        $data = json_decode($this->redis->get('weather'));
+        $result = collect();
+        foreach($data as $item) {
+            if ($item->city->name === $city)
+            {
+                $result->push($item);
+            }
+        }
+        if ($result->count() > 0){
+            return $result;
+        }
+        return null;
     }
+
+    public function addWeather($data)
+    {
+        $weather = json_decode($this->redis->get('weather'));
+        $array = collect($weather);
+        foreach($data as $item){
+            $array->push($item);
+
+        }
+        $this->redis->set('weather',$array);
+    }
+
 
 
 }
