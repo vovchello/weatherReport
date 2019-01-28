@@ -3,36 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Servises\CitiesService\Contract\CitiesServiceInterface;
+use App\Servises\RedisRepository\RedisRepository;
+use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use App\Validators\Request\SearchWeatherRequest;
-use Illuminate\Support\Collection;
 
 class WeatherController
 {
 
     private $city;
 
+    private $weatherService;
+
+    private $redisRepository;
+
     /**
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(CitiesServiceInterface $city)
+    public function __construct(CitiesServiceInterface $city, WeatherServiceInterface $weatherService, RedisRepository $redisRepository)
     {
         $this->city = $city;
+        $this->weatherService = $weatherService;
+        $this->redisRepository = $redisRepository;
     }
+
+
 
     public function index(SearchWeatherRequest $request)
     {
         $validated = $request->validated();
-        $city = $this->city->findCity($validated['city']);
-        if ($city->count() === 1) {
-            return view('',[
-                'city' => $city
-            ]);
-        } else {
-            return view('',[
-                'cities' => $city
-            ]);
+        $cities = $this->city->findCity($validated['city']);
+        $cityWeather = $this->redisRepository->getWeather($cities);
+        $state = 'from Redis';
+        if($cityWeather === null){
+            $cityWeather = $this->weatherService->getWeather($cities);
+            $this->redisRepository->addWeather($cityWeather);
+            $state = 'from api';
         }
+        dd($state);
+        return view('base.city',[
+            'cities' => $cityWeather,
+            'state' => $state
+        ]);
     }
-
 }

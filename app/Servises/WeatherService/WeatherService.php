@@ -12,6 +12,7 @@ namespace App\Servises\WeatherService;
 
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 /**
  * Class WeatherService
@@ -37,9 +38,20 @@ class WeatherService implements WeatherServiceInterface
      * @param $country
      * @param $city
      */
-    public function getWeather($country, $city)
+    public function getWeather($cities)
+    {
+        $cityWeather = collect();
+        foreach($cities as $city) {
+            $weather = $this->getWeatherByCity($city['country'],$city['name']);
+            $cityWeather->push($weather);
+        }
+        return $cityWeather;
+    }
+
+    private function getWeatherByCity($country,$city)
     {
         $weather = $this->getRequest($country,$city);
+        $weather = $this->parseResponse($weather);
         return $weather;
     }
 
@@ -85,6 +97,42 @@ class WeatherService implements WeatherServiceInterface
     private function getDecodeRequest($request)
     {
         return json_decode($request->getBody()->getContents());
+    }
+
+    private function parseCity($city)
+    {
+        return collect([
+            'name' => $city->name,
+            'country' => $city->country,
+            'lat' => $city->coord->lat,
+            'lon' => $city->coord->lon
+        ]);
+    }
+
+    private function parseResponse($data)
+    {
+        $result['city'] =collect($this->parseCity($data->city));
+        $result['weather'] = $this->parseWeather($data->list);
+        $result = collect($result);
+        return $result;
+    }
+
+    private function parseWeather($data)
+    {
+        foreach($data as $item){
+            $weather['temperature'] = $item->main->temp;
+            $weather['max_temperature'] = $item->main->temp_max;
+            $weather['min_temperature'] = $item->main->temp_min;
+            $weather['weather'] = $item->weather[0]->main;
+            $weather['wind_speed'] = isset($item->wind->speed) ? $item->wind->speed : null;
+            $weather['wind_deg'] = isset($item->wind->deg) ? $item->wind->deg : null;
+            $weather['clouds'] =  isset($item->clouds->all) ? $item->clouds->all : null;
+            $weather['snow'] = isset($item->snow) ? $item->snow : null;
+            $weather['rain'] = isset($item->rain) ? $item->rain : null;
+            $weather['data'] = $item->dt_txt;
+            $result[]= collect($weather);
+        }
+        return $result;
     }
 
 

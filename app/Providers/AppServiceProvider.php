@@ -8,6 +8,8 @@ use App\Servises\CitiesService\CitiesService;
 use App\Servises\CitiesService\Contract\CitiesServiceInterface;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 use App\Servises\JsonService\JsonService;
+use App\Servises\RedisRepository\Contracts\RedisRepositoryInterface;
+use App\Servises\RedisRepository\RedisRepository;
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use App\Servises\WeatherService\WeatherService;
 use Illuminate\Support\ServiceProvider;
@@ -35,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WeatherServiceInterface::class, WeatherService::class);
         $this->app->bind(JsonSserviceInterface::class, JsonService::class);
         $this->app->bind(CitiesServiceInterface::class, CitiesService::class);
+        $this->app->bind(RedisRepositoryInterface::class, RedisRepository::class);
     }
 }

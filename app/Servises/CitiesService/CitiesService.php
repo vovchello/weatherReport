@@ -47,7 +47,7 @@ class CitiesService implements CitiesServiceInterface
     public function findCity(string $data)
     {
         $cities = $this->getCities();
-        return $cities->where('name', $data);
+        return $cities->where('name', ucfirst(strtolower($data)));
     }
 
 
