@@ -27,23 +27,34 @@ class WeatherController
         $this->redisRepository = $redisRepository;
     }
 
+    private function getWeatherFromRedis($cities)
+    {
+     return $this->redisRepository->getWeather($cities);
+    }
+
+    private function getCities($name)
+    {
+        return $this->city->findCity($name);
+    }
+
 
 
     public function index(SearchWeatherRequest $request)
     {
         $validated = $request->validated();
-        $cities = $this->city->findCity($validated['city']);
-        $cityWeather = $this->redisRepository->getWeather($cities);
-        $state = 'from Redis';
-        if($cityWeather === null){
-            $cityWeather = $this->weatherService->getWeather($cities);
-            $this->redisRepository->addWeather($cityWeather);
-            $state = 'from api';
+        $cities = $this->getCities($validated['city']);
+        if ($cities->count > 1){
+            return view('base.city',[
+                'cities' => $cities,
+            ]);
         }
-        dd($state);
+        $cityWeather = $this->getWeatherFromRedis($cities) ?? null;
+        if (is_null($cityWeather)){
+            $cityWeather = $this->weatherService->getWeather($cities);
+            $this->redisRepository->addWeather($cities->id,$cityWeather);
+        }
         return view('base.city',[
             'cities' => $cityWeather,
-            'state' => $state
         ]);
     }
 }
