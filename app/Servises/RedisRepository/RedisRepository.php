@@ -30,9 +30,14 @@ class RedisRepository implements RedisRepositoryInterface
      * @param $city
      * @return mixed|null
      */
-    public function getWeather($city)
+    public function getWeatherForecast($city)
     {
         return $this->getWeatherById($city['id']);
+    }
+
+    public function getCurrentWeather($city)
+    {
+        return $this->getWeatherById('c'.$city['id']);
     }
 
 
@@ -49,7 +54,7 @@ class RedisRepository implements RedisRepositoryInterface
      * @param $id
      * @param $data
      */
-    public function addWeather($id, $data)
+    public function save($id, $data)
     {
         $this->redis->set($id,$data);
     }

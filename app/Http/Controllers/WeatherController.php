@@ -47,7 +47,7 @@ class WeatherController
      */
     private function getWeatherFromRedis($cities)
     {
-        return $this->redisRepository->getWeather($cities);
+        return $this->redisRepository->getCurrentWeather($cities);
     }
 
     /**
@@ -65,7 +65,7 @@ class WeatherController
      */
     private function saveWeather($id, $weather)
     {
-        $this->redisRepository->addWeather($id,$weather);
+        $this->redisRepository->save($id,$weather);
     }
 
     /**
@@ -74,8 +74,8 @@ class WeatherController
      */
     private function getweatherFromApi($city)
     {
-        $weather = $this->weatherService->getWeather($city);
-        $this->saveWeather($city['id'],$weather);
+        $weather = $this->weatherService->getCurrentWeather($city);
+        $this->saveWeather('c'.$city['id'],$weather);
         $this->message = 'from Api';
         return $weather;
     }

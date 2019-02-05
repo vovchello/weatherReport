@@ -26,21 +26,51 @@ class WeatherService implements WeatherServiceInterface
     }
 
     /**
-     * @param $country
      * @param $city
+     * @return \Illuminate\Support\Collection|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getWeather($city)
+    public function getWeatherForecast($city)
     {
-        return $this->getWeatherByCity($city['country'],$city['name']);
+        return  $this->parseResponse($this->getWeatherByCity($city,$this->getUriForWeatherForecast()));
     }
 
-    private function getWeatherByCity($country,$city)
+    /**
+     * @param $city
+     * @return \Illuminate\Support\Collection|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCurrentWeather($city)
     {
-        $weather = $this->getRequest($country,$city);
-        $weather = $this->parseResponse($weather);
-        return $weather;
+        return $this->parseCurrentWeatherResponse($this->getWeatherByCity($city,$this->getUriForCurrentWeather()));
     }
 
+    /**
+     * @param $city
+     * @param $url
+     * @return \Illuminate\Support\Collection|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function getWeatherByCity($city, $url)
+    {
+        return $this->getRequest($city, $url);
+    }
+
+    /**
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    private function getUriForWeatherForecast()
+    {
+        return config('weatherReport.weatherservice.forecast.uri');
+    }
+
+    /**
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    private function getUriForCurrentWeather()
+    {
+        return config('weatherReport.weatherservice.current.uri');
+    }
 
     /**
      * @param $country
@@ -48,24 +78,15 @@ class WeatherService implements WeatherServiceInterface
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getRequest($country, $city)
+    private function getRequest($city, $url)
     {
-        $request = $this->client->request('get',$this->getURI(),[
+        $request = $this->client->request('get',$url,[
             'query' =>[
-                'q' => $city.','.$country,
+                'q' => $city['name'].','.$city['country'],
                 'appid' => $this->getAppId()
             ]
         ]);
-        $request = $this->getDecodeRequest($request);
-        return $request;
-    }
-
-    /**
-     * @return string
-     */
-    private function getURI():string
-    {
-        return config('weatherReport.weatherservice.uri');
+        return $this->getDecodeRequest($request);
     }
 
     /**
@@ -85,6 +106,10 @@ class WeatherService implements WeatherServiceInterface
         return json_decode($request->getBody()->getContents(),true);
     }
 
+    /**
+     * @param $city
+     * @return \Illuminate\Support\Collection
+     */
     private function parseCity($city)
     {
         return collect([
@@ -95,9 +120,28 @@ class WeatherService implements WeatherServiceInterface
         ]);
     }
 
+    private function parseCityForCurrentWeather($data)
+    {
+        return [
+            'id' => $data['id'],
+            'name' => $data['name'],
+            'coord' => $data['coord'],
+            'country' => $data['sys']['country']
+        ];
+    }
+
+    private function parseCurrentWeatherResponse($data)
+    {
+        return collect(['city' => $this->parseCityForCurrentWeather($data),'weather' => $data]);
+    }
+
+    /**
+     * @param $data
+     * @return \Illuminate\Support\Collection
+     */
     private function parseResponse($data)
     {
-        return collect(['city' => $this->parseCity($data['city']),'weather' => $data['list']]);
+        return collect(['city' => $this->parseCity($data['name']),'weather' => $data['list']]);
     }
 
 }

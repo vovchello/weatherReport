@@ -11,6 +11,10 @@ namespace App\Servises\RedisRepository\Contracts;
 
 interface RedisRepositoryInterface
 {
-    public function getWeather($cities);
+    public function getWeatherForecast($city);
+
+    public function getCurrentWeather($city);
+
+    public function save($id, $data);
 
 }

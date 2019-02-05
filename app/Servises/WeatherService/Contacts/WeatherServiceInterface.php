@@ -9,7 +9,21 @@
 namespace App\Servises\WeatherService\Contacts;
 
 
+/**
+ * Interface WeatherServiceInterface
+ * @package App\Servises\WeatherService\Contacts
+ */
 interface WeatherServiceInterface
 {
-        public function getWeather($cities);
+    /**
+     * @param $city
+     * @return mixed
+     */
+    public function getCurrentWeather($city);
+
+    /**
+     * @param $city
+     * @return mixed
+     */
+    public function getWeatherForecast($city);
 }
