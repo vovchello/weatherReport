@@ -104,7 +104,7 @@ class WeatherController
         $validated = $request->validated();
         $cities = $this->getCities($validated['city']);
         $cityWeather = $this->getWeather($cities);
-//        dd($cityWeather);
+        dd($cityWeather);
         return view('base.weather',[
             'weatherList' => $cityWeather,
             'message' => $this->message
