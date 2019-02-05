@@ -6,8 +6,15 @@ namespace App\Servises\RedisRepository;
 use App\Servises\RedisRepository\Contracts\RedisRepositoryInterface;
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class RedisRepository
+ * @package App\Servises\RedisRepository
+ */
 class RedisRepository implements RedisRepositoryInterface
 {
+    /**
+     * @var \Illuminate\Redis\Connections\Connection
+     */
     private $redis;
 
     /**
@@ -19,18 +26,30 @@ class RedisRepository implements RedisRepositoryInterface
         $this->redis = Redis::connection();
     }
 
+    /**
+     * @param $city
+     * @return mixed|null
+     */
     public function getWeather($city)
     {
-            return $this->getWeatherById($city['id']);
+        return $this->getWeatherById($city['id']);
     }
 
 
+    /**
+     * @param $id
+     * @return mixed|null
+     */
     private function getWeatherById($id)
     {
-        return  $this->redis->get($id) ?? null;
+        return json_decode($this->redis->get($id),true) ?? null;
     }
 
-    public function addWeather($id,$data)
+    /**
+     * @param $id
+     * @param $data
+     */
+    public function addWeather($id, $data)
     {
         $this->redis->set($id,$data);
     }
