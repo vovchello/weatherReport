@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Servises\RedisRepository;
+namespace App\Servises\DataBaseService;
 
 
-use App\Servises\RedisRepository\Contracts\RedisRepositoryInterface;
+use App\Servises\DataBaseService\Contracts\DataBaseServiceInterface;
 use Illuminate\Support\Facades\Redis;
 
 /**
- * Class RedisRepository
- * @package App\Servises\RedisRepository
+ * Class DataBaseService
+ * @package App\Servises\DataBaseService
  */
-class RedisRepository implements RedisRepositoryInterface
+class DataBaseService implements DataBaseServiceInterface
 {
     /**
      * @var \Illuminate\Redis\Connections\Connection
@@ -18,7 +18,7 @@ class RedisRepository implements RedisRepositoryInterface
     private $redis;
 
     /**
-     * RedisRepository constructor.
+     * DataBaseService constructor.
      * @param $redis
      */
     public function __construct()

@@ -6,10 +6,10 @@
  * Time: 14:14
  */
 
-namespace App\Servises\RedisRepository\Contracts;
+namespace App\Servises\DataBaseService\Contracts;
 
 
-interface RedisRepositoryInterface
+interface DataBaseServiceInterface
 {
     public function getWeatherForecast($city);
 

@@ -3,7 +3,7 @@
 namespace App\Servises\WeatherServise;
 
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
-use App\Servises\RedisRepository\RedisRepository;
+use App\Servises\DataBaseService\DataBaseService;
 use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
 
 class WeatherService implements WeatherServiseInterface
@@ -15,11 +15,11 @@ class WeatherService implements WeatherServiseInterface
     private $apiService;
 
     /**
-     * @var RedisRepository
+     * @var DataBaseService
      */
     private $redisRepository;
 
-    public function __construct(ApiServiceInterface $apiService, RedisRepository $redisRepository)
+    public function __construct(ApiServiceInterface $apiService, DataBaseService $redisRepository)
     {
         $this->apiService = $apiService;
         $this->redisRepository = $redisRepository;
