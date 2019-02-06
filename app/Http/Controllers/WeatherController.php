@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Servises\CitiesService\Contract\CitiesServiceInterface;
+use App\Servises\CitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\RedisRepository\RedisRepository;
 use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use App\Validators\Request\SearchWeatherRequest;
@@ -16,7 +17,7 @@ class WeatherController
     private $message;
 
     /**
-     * @var CitiesServiceInterface
+     * @var FindCitiesServiceInterface
      */
     private $city;
 
@@ -34,7 +35,7 @@ class WeatherController
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(CitiesServiceInterface $city, WeatherServiceInterface $weatherService, RedisRepository $redisRepository)
+    public function __construct(FindCitiesServiceInterface $city, WeatherServiceInterface $weatherService, RedisRepository $redisRepository)
     {
         $this->city = $city;
         $this->weatherService = $weatherService;
@@ -104,7 +105,6 @@ class WeatherController
         $validated = $request->validated();
         $cities = $this->getCities($validated['city']);
         $cityWeather = $this->getWeather($cities);
-        dd($cityWeather);
         return view('base.weather',[
             'weatherList' => $cityWeather,
             'message' => $this->message

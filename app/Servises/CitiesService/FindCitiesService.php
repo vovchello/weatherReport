@@ -3,13 +3,14 @@
 namespace App\Servises\CitiesService;
 
 use App\Servises\CitiesService\Contract\CitiesServiceInterface;
+use App\Servises\CitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 
 /**
- * Class CitiesService
- * @package App\Servises\CitiesService
+ * Class FindCitiesService
+ * @package App\Servises\FindCitiesService
  */
-class CitiesService implements CitiesServiceInterface
+class FindCitiesService implements FindCitiesServiceInterface
 {
 
     /**
@@ -23,7 +24,7 @@ class CitiesService implements CitiesServiceInterface
     private $jsonService;
 
     /**
-     * CitiesService constructor.
+     * FindCitiesService constructor.
      * @param $file
      */
     public function __construct(JsonSserviceInterface $jsonService)

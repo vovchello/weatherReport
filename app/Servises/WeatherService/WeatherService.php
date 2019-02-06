@@ -72,6 +72,11 @@ class WeatherService implements WeatherServiceInterface
         return config('weatherReport.weatherservice.current.uri');
     }
 
+    private function getUnits()
+    {
+        return config('weatherReport.weatherservice.units');
+    }
+
     /**
      * @param $country
      * @param $city
@@ -83,6 +88,7 @@ class WeatherService implements WeatherServiceInterface
         $request = $this->client->request('get',$url,[
             'query' =>[
                 'q' => $city['name'].','.$city['country'],
+                'units' => $this->getUnits(),
                 'appid' => $this->getAppId()
             ]
         ]);
@@ -120,6 +126,10 @@ class WeatherService implements WeatherServiceInterface
         ]);
     }
 
+    /**
+     * @param $data
+     * @return array
+     */
     private function parseCityForCurrentWeather($data)
     {
         return [
@@ -130,6 +140,10 @@ class WeatherService implements WeatherServiceInterface
         ];
     }
 
+    /**
+     * @param $data
+     * @return \Illuminate\Support\Collection
+     */
     private function parseCurrentWeatherResponse($data)
     {
         return collect(['city' => $this->parseCityForCurrentWeather($data),'weather' => $data]);

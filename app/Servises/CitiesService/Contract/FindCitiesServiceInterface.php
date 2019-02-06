@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: panda
- * Date: 22.01.19
- * Time: 11:25
+ * Date: 06.02.19
+ * Time: 9:14
  */
 
 namespace App\Servises\CitiesService\Contract;
 
 
-interface CitiesServiceInterface
+interface FindCitiesServiceInterface
 {
     public function findCity(string $data);
 }
