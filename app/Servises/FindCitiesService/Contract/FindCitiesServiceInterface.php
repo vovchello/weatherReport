@@ -12,4 +12,5 @@ namespace App\Servises\FindCitiesService\Contract;
 interface FindCitiesServiceInterface
 {
     public function findCity(string $data);
+    public function getCityById($id);
 }

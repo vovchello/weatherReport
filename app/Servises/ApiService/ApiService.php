@@ -85,6 +85,7 @@ class ApiService implements ApiServiceInterface
      */
     private function getRequest($city, $url)
     {
+//        dd($city);
         $request = $this->client->request('get',$url,[
             'query' =>[
 //                'q' => $city['name'].','.$city['country'],
@@ -156,7 +157,8 @@ class ApiService implements ApiServiceInterface
      */
     private function parseResponse($data)
     {
-        return collect(['city' => $this->parseCity($data['name']),'weather' => $data['list']]);
+//        dd($data);
+        return collect(['city' => $this->parseCity($data['city']),'weather' => $data['list']]);
     }
 
 }

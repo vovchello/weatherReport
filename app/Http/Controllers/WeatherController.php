@@ -37,10 +37,10 @@ class WeatherController
     {
         $validated = $request->validated();
         $cities = $this->findCity->findCity($validated['city']);
-        $cityWeather = $this->weatherServise->getWeather($cities);
+        $cityWeather = $this->weatherServise->getCurrentWeather($cities);
         return view('base.weather',[
-            'weatherList' => $cityWeather,
-            'message' => $this->message
+            'weatherList' => $cityWeather['weather'],
+            'message' => $cityWeather['message']
         ]);
     }
 }

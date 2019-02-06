@@ -8,7 +8,7 @@
         </div>
 
         <form action="{{route('weather')}}" method="post">
-            {{csrf_field()}}
+                {{csrf_field()}}
             <div class="form-group row"><label for="city" class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-6">
                     <input  class="form-control" id="city" name = 'city' placeholder="Your city name" >

@@ -41,6 +41,12 @@ class FindCitiesService implements FindCitiesServiceInterface
         return $this->jsonService->getFile($this->file['path']);
     }
 
+    public function getCityById($id)
+    {
+        $cities = $this->getCities();
+        return $cities->where('id',$id)->first();
+    }
+
     /**
      * @param string $data
      * @return \Illuminate\Support\Collection

@@ -6,6 +6,10 @@ use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use App\Servises\DataBaseService\DataBaseService;
 use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
 
+/**
+ * Class WeatherService
+ * @package App\Servises\WeatherServise
+ */
 class WeatherService implements WeatherServiseInterface
 {
 
@@ -19,16 +23,43 @@ class WeatherService implements WeatherServiseInterface
      */
     private $redisRepository;
 
+    private $message;
+
+    /**
+     * WeatherService constructor.
+     * @param ApiServiceInterface $apiService
+     * @param DataBaseService $redisRepository
+     */
     public function __construct(ApiServiceInterface $apiService, DataBaseService $redisRepository)
     {
         $this->apiService = $apiService;
         $this->redisRepository = $redisRepository;
     }
 
-    private function getWeatherFromRedis($cities)
+    /**
+     * This gets Current weather from redis
+     *
+     * @param $cities
+     * @return mixed|null
+     */
+    private function getCurentWeatherFromRedis($cities)
     {
+        $this->message = 'Information from DB';
         return $this->redisRepository->getCurrentWeather($cities);
     }
+
+    /**
+     * This gets weather from redis
+     *
+     * @param $cities
+     * @return mixed|null
+     */
+    private function getWeatherFromRedis($cities)
+    {
+        $this->message = 'Information from DB';
+        return $this->redisRepository->getWeatherForecast($cities);
+    }
+
 
 
     /**
@@ -44,21 +75,49 @@ class WeatherService implements WeatherServiseInterface
      * @param $city
      * @return mixed
      */
-    private function getweatherFromApi($city)
+    private function getCurrentWeatherFromApi($city)
     {
         $weather = $this->apiService->getCurrentWeather($city);
         $this->saveWeather('c'.$city['id'],$weather);
-        $this->message = 'from Api';
+        unset($this->message);
         return $weather;
     }
 
-    public function getWeather($cities)
+    /**
+     * @param $city
+     * @return mixed
+     */
+    private function getWeatherFromApi($city)
+    {
+        $weather = $this->apiService->getWeatherForecast($city);
+        $this->saveWeather($city['id'],$weather);
+        unset($this->message);
+        return $weather;
+    }
+
+    /**
+     * @param $cities
+     * @return array
+     */
+    public function getCurrentWeather($cities)
     {
         $weather = collect();
         foreach ($cities as $city){
-            $weather->push($this->getWeatherFromRedis($city) ?? $this->getweatherFromApi($city));
+            $weather->push($this->getCurentWeatherFromRedis($city) ?? $this->getCurrentWeatherFromApi($city));
         }
-        return $weather;
+        return ['weather' => $weather, 'message' => $this->message ?? null];
+    }
+
+    /**
+     * @param $city
+     * @return array
+     */
+    public function getWeatherForecast($city)
+    {
+        return [
+            'weather' => collect ($this->getWeatherFromRedis($city) ?? $this->getWeatherFromApi($city)),
+            'message' => $this->message ?? null
+        ];
     }
 
 }
