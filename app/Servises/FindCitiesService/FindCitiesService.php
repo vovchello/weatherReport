@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Servises\CitiesService;
+namespace App\Servises\FindCitiesService;
 
-use App\Servises\CitiesService\Contract\CitiesServiceInterface;
+use App\Servises\FindCitiesService\Contract\CitiesServiceInterface;
+use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 
 /**
- * Class CitiesService
- * @package App\Servises\CitiesService
+ * Class FindCitiesService
+ * @package App\Servises\FindCitiesService
  */
-class CitiesService implements CitiesServiceInterface
+class FindCitiesService implements FindCitiesServiceInterface
 {
 
     /**
@@ -23,7 +24,7 @@ class CitiesService implements CitiesServiceInterface
     private $jsonService;
 
     /**
-     * CitiesService constructor.
+     * FindCitiesService constructor.
      * @param $file
      */
     public function __construct(JsonSserviceInterface $jsonService)
@@ -38,6 +39,12 @@ class CitiesService implements CitiesServiceInterface
     private function getCities()
     {
         return $this->jsonService->getFile($this->file['path']);
+    }
+
+    public function getCityById($id)
+    {
+        $cities = $this->getCities();
+        return $cities->where('id',$id)->first();
     }
 
     /**

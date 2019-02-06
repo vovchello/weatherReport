@@ -2,48 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\CitiesService\Contract\CitiesServiceInterface;
-use App\Servises\RedisRepository\RedisRepository;
-use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
+use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
+use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
 use App\Validators\Request\SearchWeatherRequest;
 
+/**
+ * Class WeatherController
+ * @package App\Http\Controllers
+ */
 class WeatherController
 {
+    private $message;
 
-    private $city;
-
-    private $weatherService;
-
-    private $redisRepository;
+    /**
+     * @var FindCitiesServiceInterface
+     */
+    private $findCity;
 
     /**
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(CitiesServiceInterface $city, WeatherServiceInterface $weatherService, RedisRepository $redisRepository)
+    public function __construct(FindCitiesServiceInterface $findCity, WeatherServiseInterface $weatherServise)
     {
-        $this->city = $city;
-        $this->weatherService = $weatherService;
-        $this->redisRepository = $redisRepository;
+        $this->findCity = $findCity;
+        $this->weatherServise = $weatherServise;
     }
 
-
-
+    /**
+     * @param SearchWeatherRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(SearchWeatherRequest $request)
     {
         $validated = $request->validated();
-        $cities = $this->city->findCity($validated['city']);
-        $cityWeather = $this->redisRepository->getWeather($cities);
-        $state = 'from Redis';
-        if($cityWeather === null){
-            $cityWeather = $this->weatherService->getWeather($cities);
-            $this->redisRepository->addWeather($cityWeather);
-            $state = 'from api';
-        }
-        dd($state);
-        return view('base.city',[
-            'cities' => $cityWeather,
-            'state' => $state
+        $cities = $this->findCity->findCity($validated['city']);
+        $cityWeather = $this->weatherServise->getCurrentWeather($cities);
+        return view('base.weather',[
+            'weatherList' => $cityWeather['weather'],
+            'message' => $cityWeather['message']
         ]);
     }
 }
