@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Servises\CitiesService;
+namespace App\Servises\FindCitiesService;
 
-use App\Servises\CitiesService\Contract\CitiesServiceInterface;
-use App\Servises\CitiesService\Contract\FindCitiesServiceInterface;
+use App\Servises\FindCitiesService\Contract\CitiesServiceInterface;
+use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 
 /**

@@ -4,14 +4,14 @@ namespace App\Providers;
 
 use App\Repositories\WetherReportRepository\Contact\WeatherReportRepositoryInterface;
 use App\Repositories\WetherReportRepository\WeatherReportRepository;
-use App\Servises\CitiesService\Contract\FindCitiesServiceInterface;
-use App\Servises\CitiesService\FindCitiesService;
+use App\Servises\ApiService\Contacts\ApiServiceInterface;
+use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
+use App\Servises\FindCitiesService\FindCitiesService;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 use App\Servises\JsonService\JsonService;
 use App\Servises\RedisRepository\Contracts\RedisRepositoryInterface;
 use App\Servises\RedisRepository\RedisRepository;
-use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
-use App\Servises\WeatherService\WeatherService;
+use App\Servises\ApiService\ApiService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(WeatherReportRepositoryInterface::class, WeatherReportRepository::class);
-        $this->app->bind(WeatherServiceInterface::class, WeatherService::class);
+        $this->app->bind(ApiServiceInterface::class, ApiService::class);
         $this->app->bind(JsonSserviceInterface::class, JsonService::class);
         $this->app->bind(FindCitiesServiceInterface::class, FindCitiesService::class);
         $this->app->bind(RedisRepositoryInterface::class, RedisRepository::class);

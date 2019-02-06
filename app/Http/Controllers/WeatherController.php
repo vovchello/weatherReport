@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\CitiesService\Contract\CitiesServiceInterface;
-use App\Servises\CitiesService\Contract\FindCitiesServiceInterface;
+use App\Servises\ApiService\Contacts\ApiServiceInterface;
+use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\RedisRepository\RedisRepository;
-use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
 use App\Validators\Request\SearchWeatherRequest;
 
 /**
@@ -22,9 +21,9 @@ class WeatherController
     private $city;
 
     /**
-     * @var WeatherServiceInterface
+     * @var apiServiceInterface
      */
-    private $weatherService;
+    private $apiService;
 
     /**
      * @var RedisRepository
@@ -35,10 +34,10 @@ class WeatherController
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(FindCitiesServiceInterface $city, WeatherServiceInterface $weatherService, RedisRepository $redisRepository)
+    public function __construct(FindCitiesServiceInterface $city, ApiServiceInterface $apiService, RedisRepository $redisRepository)
     {
         $this->city = $city;
-        $this->weatherService = $weatherService;
+        $this->apiService = $apiService;
         $this->redisRepository = $redisRepository;
     }
 
@@ -75,7 +74,7 @@ class WeatherController
      */
     private function getweatherFromApi($city)
     {
-        $weather = $this->weatherService->getCurrentWeather($city);
+        $weather = $this->apiService->getCurrentWeather($city);
         $this->saveWeather('c'.$city['id'],$weather);
         $this->message = 'from Api';
         return $weather;

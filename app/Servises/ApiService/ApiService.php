@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Servises\WeatherService;
+namespace App\Servises\ApiService;
 
-use App\Servises\WeatherService\Contacts\WeatherServiceInterface;
+use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use GuzzleHttp\Client;
 
 /**
- * Class WeatherService
- * @package App\Servises\WeatherService
+ * Class ApiService
+ * @package App\Servises\ApiService
  */
-class WeatherService implements WeatherServiceInterface
+class ApiService implements ApiServiceInterface
 {
     /**
      * @var Client
@@ -17,7 +17,7 @@ class WeatherService implements WeatherServiceInterface
     private $client;
 
     /**
-     * WeatherService constructor.
+     * ApiService constructor.
      * @param $client
      */
     public function __construct(Client $client)

@@ -6,7 +6,7 @@
  * Time: 9:14
  */
 
-namespace App\Servises\CitiesService\Contract;
+namespace App\Servises\FindCitiesService\Contract;
 
 
 interface FindCitiesServiceInterface

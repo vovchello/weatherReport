@@ -6,14 +6,14 @@
  * Time: 14:41
  */
 
-namespace App\Servises\WeatherService\Contacts;
+namespace App\Servises\ApiService\Contacts;
 
 
 /**
  * Interface WeatherServiceInterface
- * @package App\Servises\WeatherService\Contacts
+ * @package App\Servises\ApiService\Contacts
  */
-interface WeatherServiceInterface
+interface ApiServiceInterface
 {
     /**
      * @param $city
