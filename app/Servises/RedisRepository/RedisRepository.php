@@ -32,12 +32,12 @@ class RedisRepository implements RedisRepositoryInterface
      */
     public function getWeatherForecast($city)
     {
-        return $this->getWeatherById($city['id']);
+        return $this->getWeatherByIdFromBase($city['id']);
     }
 
     public function getCurrentWeather($city)
     {
-        return $this->getWeatherById('c'.$city['id']);
+        return $this->getWeatherByIdFromBase('c'.$city['id']);
     }
 
 
@@ -45,7 +45,7 @@ class RedisRepository implements RedisRepositoryInterface
      * @param $id
      * @return mixed|null
      */
-    private function getWeatherById($id)
+    private function getWeatherByIdFromBase($id)
     {
         return json_decode($this->redis->get($id),true) ?? null;
     }

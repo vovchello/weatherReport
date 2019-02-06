@@ -87,7 +87,8 @@ class ApiService implements ApiServiceInterface
     {
         $request = $this->client->request('get',$url,[
             'query' =>[
-                'q' => $city['name'].','.$city['country'],
+//                'q' => $city['name'].','.$city['country'],
+                'id' => $city['id'],
                 'units' => $this->getUnits(),
                 'appid' => $this->getAppId()
             ]

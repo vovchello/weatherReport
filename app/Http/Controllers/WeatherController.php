@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
-use App\Servises\RedisRepository\RedisRepository;
+use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
 use App\Validators\Request\SearchWeatherRequest;
 
 /**
@@ -18,82 +17,17 @@ class WeatherController
     /**
      * @var FindCitiesServiceInterface
      */
-    private $city;
-
-    /**
-     * @var apiServiceInterface
-     */
-    private $apiService;
-
-    /**
-     * @var RedisRepository
-     */
-    private $redisRepository;
+    private $findCity;
 
     /**
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(FindCitiesServiceInterface $city, ApiServiceInterface $apiService, RedisRepository $redisRepository)
+    public function __construct(FindCitiesServiceInterface $findCity, WeatherServiseInterface $weatherServise)
     {
-        $this->city = $city;
-        $this->apiService = $apiService;
-        $this->redisRepository = $redisRepository;
+        $this->findCity = $findCity;
+        $this->weatherServise = $weatherServise;
     }
-
-    /**
-     * @param $cities
-     * @return mixed|null
-     */
-    private function getWeatherFromRedis($cities)
-    {
-        return $this->redisRepository->getCurrentWeather($cities);
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    private function getCities($name)
-    {
-        return $this->city->findCity($name);
-    }
-
-    /**
-     * @param $id
-     * @param $weather
-     */
-    private function saveWeather($id, $weather)
-    {
-        $this->redisRepository->save($id,$weather);
-    }
-
-    /**
-     * @param $city
-     * @return mixed
-     */
-    private function getweatherFromApi($city)
-    {
-        $weather = $this->apiService->getCurrentWeather($city);
-        $this->saveWeather('c'.$city['id'],$weather);
-        $this->message = 'from Api';
-        return $weather;
-    }
-
-    /**
-     * @param $cities
-     * @return \Illuminate\Support\Collection
-     */
-    private function getWeather($cities)
-    {
-        $weather = collect();
-        foreach ($cities as $city){
-            $weather->push($this->getWeatherFromRedis($city) ?? $this->getweatherFromApi($city));
-        }
-        return $weather;
-
-    }
-
 
     /**
      * @param SearchWeatherRequest $request
@@ -102,8 +36,8 @@ class WeatherController
     public function index(SearchWeatherRequest $request)
     {
         $validated = $request->validated();
-        $cities = $this->getCities($validated['city']);
-        $cityWeather = $this->getWeather($cities);
+        $cities = $this->findCity->findCity($validated['city']);
+        $cityWeather = $this->weatherServise->getWeather($cities);
         return view('base.weather',[
             'weatherList' => $cityWeather,
             'message' => $this->message
