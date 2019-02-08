@@ -30,16 +30,10 @@ class DataBaseService implements DataBaseServiceInterface
      * @param $city
      * @return mixed|null
      */
-    public function getWeatherForecast($city)
+    public function getWeatherForecast($id)
     {
-        return $this->getWeatherByIdFromBase($city['id']);
+        return $this->getWeatherByIdFromBase($id);
     }
-
-    public function getCurrentWeather($city)
-    {
-        return $this->getWeatherByIdFromBase('c'.$city['id']);
-    }
-
 
     /**
      * @param $id

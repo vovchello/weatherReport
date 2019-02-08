@@ -13,8 +13,6 @@ interface DataBaseServiceInterface
 {
     public function getWeatherForecast($city);
 
-    public function getCurrentWeather($city);
-
     public function save($id, $data);
 
 }

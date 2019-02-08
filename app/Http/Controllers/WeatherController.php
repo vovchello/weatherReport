@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
-use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
+use App\Servises\WeatherServise\CurrentWeatherService\Contracts\CurrentWeatherServiceInterface;
 use App\Validators\Request\SearchWeatherRequest;
 
 /**
@@ -23,7 +23,7 @@ class WeatherController
      * WeatherController constructor.
      * @param $city
      */
-    public function __construct(FindCitiesServiceInterface $findCity, WeatherServiseInterface $weatherServise)
+    public function __construct(FindCitiesServiceInterface $findCity, CurrentWeatherServiceInterface $weatherServise)
     {
         $this->findCity = $findCity;
         $this->weatherServise = $weatherServise;
