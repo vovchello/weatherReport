@@ -10,10 +10,10 @@ use App\Servises\JsonService\JsonService;
 use App\Servises\DataBaseService\Contracts\DataBaseServiceInterface;
 use App\Servises\DataBaseService\DataBaseService;
 use App\Servises\ApiService\ApiService;
-use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
 use App\Servises\WeatherServise\CurrentWeatherService\Contracts\CurrentWeatherServiceInterface;
 use App\Servises\WeatherServise\CurrentWeatherService\CurrentWeatherService;
-use App\Servises\WeatherServise\WeatherService;
+use App\Servises\WeatherServise\WeatherForecastService\Contracts\WeatherServiseInterface;
+use App\Servises\WeatherServise\WeatherForecastService\WeatherService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

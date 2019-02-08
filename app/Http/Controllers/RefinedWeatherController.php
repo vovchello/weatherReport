@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
-use App\Servises\WeatherServise\Contracts\WeatherServiseInterface;
+use App\Servises\WeatherServise\WeatherForecastService\Contracts\WeatherServiseInterface;
 
 /**
  * Class RefinedWeatherController

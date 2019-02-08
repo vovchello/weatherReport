@@ -6,7 +6,7 @@
  * Time: 9:26
  */
 
-namespace App\Servises\WeatherServise\Contracts;
+namespace App\Servises\WeatherServise\WeatherForecastService\Contracts;
 
 
 interface WeatherServiseInterface
