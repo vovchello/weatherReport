@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Servises\WeatherServise;
+
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use App\Servises\DataBaseService\DataBaseService;
 
@@ -29,11 +31,6 @@ abstract class WeatherService
     protected $message;
 
     /**
-     *
-     */
-    private const CONFIG_FILE_PATH = 'weatherReport.weatherservice';
-
-    /**
      * WeatherService constructor.
      * @param ApiServiceInterface $apiService
      * @param DataBaseService $redisRepository
@@ -42,7 +39,6 @@ abstract class WeatherService
     {
         $this->apiService = $apiService;
         $this->redisRepository = $redisRepository;
-        $this->config = config(self::CONFIG_FILE_PATH);
     }
 
 
@@ -54,4 +50,26 @@ abstract class WeatherService
     {
         $this->redisRepository->save($id,$weather);
     }
+
+    abstract protected function makeIdForDataBase(string $cityId, string $units):string;
+
+    protected function getWeatherFromApi($city,$weatherMethod)
+    {
+        $weather = $this->apiService->getWeather($city,$weatherMethod);
+        $this->saveWeather($this->makeIdForDataBase($city['id'],'m'),$weather);
+        unset($this->message);
+        return $weather;
+    }
+
+    protected function getWeatherFromRedis($id)
+    {
+        $this->message = 'Information from DB';
+        return $this->redisRepository->getWeatherForecast($this->makeIdForDataBase($id,'m'));
+    }
+
+    /**
+     * @param $city
+     * @return array
+     */
+    abstract public function getWeather($city);
 }

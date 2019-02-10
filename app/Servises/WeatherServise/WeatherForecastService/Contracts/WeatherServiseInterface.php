@@ -11,7 +11,5 @@ namespace App\Servises\WeatherServise\WeatherForecastService\Contracts;
 
 interface WeatherServiseInterface
 {
-    public function getCurrentWeather($cities);
-
-    public function getWeatherForecast($id);
+    public function getWeather($cities);
 }

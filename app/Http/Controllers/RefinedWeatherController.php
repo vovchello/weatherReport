@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: panda
- * Date: 06.02.19
- * Time: 10:23
- */
 
 namespace App\Http\Controllers;
 
@@ -45,7 +39,8 @@ class RefinedWeatherController
     public function index($id)
     {
         $city = $this->findCity->getCityById($id);
-        $weatherList = $this->weatherService->getWeatherForecast($city);
+        $weatherList = $this->weatherService->getWeather($city);
+//        dd($weatherList);
         return view('base.refinedReport',[
             'weatherList' => $weatherList['weather'],
             'message' => $weatherList['message']

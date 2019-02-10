@@ -25,6 +25,12 @@ class ApiService implements ApiServiceInterface
         $this->client = $client;
     }
 
+    public function getWeather($city,$weatherMethod)
+    {
+        $weatherMethod === 'current' ? $weather = $this->getCurrentWeather($city) : $weather = $this->getWeatherForecast($city);
+        return $weather;
+    }
+
     /**
      * @param $city
      * @return \Illuminate\Support\Collection|mixed|\Psr\Http\Message\ResponseInterface
@@ -155,7 +161,6 @@ class ApiService implements ApiServiceInterface
      */
     private function parseResponse($data)
     {
-//        dd($data);
         return collect(['city' => $this->parseCity($data['city']),'weather' => $data['list']]);
     }
 
