@@ -40,7 +40,6 @@ class RefinedWeatherController
     {
         $city = $this->findCity->getCityById($id);
         $weatherList = $this->weatherService->getWeather($city);
-//        dd($weatherList);
         return view('base.refinedReport',[
             'weatherList' => $weatherList['weather'],
             'message' => $weatherList['message']

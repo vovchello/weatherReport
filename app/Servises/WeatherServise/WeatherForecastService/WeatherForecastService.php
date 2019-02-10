@@ -3,12 +3,13 @@
 namespace App\Servises\WeatherServise\WeatherForecastService;
 
 use App\Servises\WeatherServise\WeatherForecastService\Contracts\WeatherServiseInterface;
+use App\Servises\WeatherServise\WeatherService;
 
 /**
- * Class WeatherService
+ * Class WeatherForecastService
  * @package App\Servises\WeatherServise
  */
-class WeatherService extends \App\Servises\WeatherServise\WeatherService implements WeatherServiseInterface
+class WeatherForecastService extends WeatherService implements WeatherServiseInterface
 {
 
     protected function makeIdForDataBase(string $cityId, string $units):string

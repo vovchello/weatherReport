@@ -31,7 +31,7 @@ abstract class WeatherService
     protected $message;
 
     /**
-     * WeatherService constructor.
+     * WeatherForecastService constructor.
      * @param ApiServiceInterface $apiService
      * @param DataBaseService $redisRepository
      */
