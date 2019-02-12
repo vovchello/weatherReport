@@ -12,12 +12,13 @@ use App\Validators\Request\SearchWeatherRequest;
  */
 class WeatherController
 {
-    private $message;
 
     /**
      * @var FindCitiesServiceInterface
      */
     private $findCity;
+
+    private $weatherServise;
 
     /**
      * WeatherController constructor.

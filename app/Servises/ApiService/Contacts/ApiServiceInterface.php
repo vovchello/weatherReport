@@ -19,5 +19,5 @@ interface ApiServiceInterface
      * @param $city
      * @return mixed
      */
-    public function getWeather($city, $weatherMethod);
+    public function getRequest($id, $url);
 }

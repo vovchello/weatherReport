@@ -38,8 +38,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ApiServiceInterface::class, ApiService::class);
         $this->app->bind(JsonSserviceInterface::class, JsonService::class);
         $this->app->bind(FindCitiesServiceInterface::class, FindCitiesService::class);
-        $this->app->bind(DataBaseServiceInterface::class, DataBaseService::class);
-        $this->app->bind(WeatherServiseInterface::class, WeatherForecastService::class);
-        $this->app->bind(CurrentWeatherServiceInterface::class, CurrentWeatherService::class);
+//        $this->app->bind(DataBaseServiceInterface::class, DataBaseService::class);
+//        $this->app->bind(WeatherServiseInterface::class, WeatherForecastService::class);
+//        $this->app->bind(CurrentWeatherServiceInterface::class, CurrentWeatherService::class);
     }
 }
