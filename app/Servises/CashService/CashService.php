@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Servises\DataBaseService;
+namespace App\Servises\CashService;
 
-
-use App\Servises\DataBaseService\Contracts\DataBaseServiceInterface;
+use App\Servises\CashService\Contracts\CashServiceInterface;
 use Illuminate\Support\Facades\Redis;
 
 /**
- * Class DataBaseService
- * @package App\Servises\DataBaseService
+ * Class CashService
+ * @package App\Servises\CashService
  */
-class DataBaseService implements DataBaseServiceInterface
+class CashService implements CashServiceInterface
 {
     /**
      * @var \Illuminate\Redis\Connections\Connection
@@ -18,7 +17,7 @@ class DataBaseService implements DataBaseServiceInterface
     private $redis;
 
     /**
-     * DataBaseService constructor.
+     * CashService constructor.
      * @param $redis
      */
     public function __construct()

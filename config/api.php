@@ -8,11 +8,14 @@ return [
         'current' => [
             'uri' => 'api.openweathermap.org/data/2.5/weather',
         ],
-        'query' => [
-            'q' =>'' ,
-            'units' => 'metric',
-            'appid' => '02c10ef435d6119a32450932ac127016'
+        'params' =>[
+            'query' => [
+                'q' =>'' ,
+                'units' => 'metric',
+                'appid' => '02c10ef435d6119a32450932ac127016'
+            ]
         ],
+
     ],
     'city' =>[
         'uri' => 'https://battuta.medunes.net/api/country/search/',

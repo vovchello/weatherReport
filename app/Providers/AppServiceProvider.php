@@ -7,13 +7,9 @@ use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
 use App\Servises\FindCitiesService\FindCitiesService;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 use App\Servises\JsonService\JsonService;
-use App\Servises\DataBaseService\Contracts\DataBaseServiceInterface;
-use App\Servises\DataBaseService\DataBaseService;
+use App\Servises\DataBaseService\Contracts\CashServiceInterface;
+use App\Servises\DataBaseService\CashService;
 use App\Servises\ApiService\ApiService;
-use App\Servises\WeatherServise\CurrentWeatherService\Contracts\CurrentWeatherServiceInterface;
-use App\Servises\WeatherServise\CurrentWeatherService\CurrentWeatherService;
-use App\Servises\WeatherServise\WeatherForecastService\Contracts\WeatherServiseInterface;
-use App\Servises\WeatherServise\WeatherForecastService\WeatherForecastService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ApiServiceInterface::class, ApiService::class);
         $this->app->bind(JsonSserviceInterface::class, JsonService::class);
         $this->app->bind(FindCitiesServiceInterface::class, FindCitiesService::class);
-//        $this->app->bind(DataBaseServiceInterface::class, DataBaseService::class);
+//        $this->app->bind(CashServiceInterface::class, CashService::class);
 //        $this->app->bind(WeatherServiseInterface::class, WeatherForecastService::class);
 //        $this->app->bind(CurrentWeatherServiceInterface::class, CurrentWeatherService::class);
     }

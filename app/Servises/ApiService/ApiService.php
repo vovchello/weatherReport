@@ -4,42 +4,20 @@ namespace App\Servises\ApiService;
 
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 
-/**
- * Class ApiService
- * @package App\Servises\ApiService
- */
-class ApiService implements ApiServiceInterface
-{
-    /**
-     * @var Client
-     */
+
+ class ApiService implements ApiServiceInterface
+ {
     private $client;
 
-    /**
-     * ApiService constructor.
-     * @param $client
-     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-
-    /**
-     * @param $url
-     * @param $params
-     * @return mixed|string
-     */
-    public function getRequest($url, $params)
-    {
-        try {
-            $request = $this->client->request('get', $url, $params);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
-        }
-        return $request->getBody()->getContents();
-    }
-
+     public function getRequest(string $uri, array $params)
+     {
+         $request = $this->client->request('get',$uri,$params);
+         return $request->getBody()->getContents();
+     }
 }

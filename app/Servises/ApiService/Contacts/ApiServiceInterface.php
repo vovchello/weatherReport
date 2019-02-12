@@ -20,5 +20,5 @@ interface ApiServiceInterface
      * @param array $params
      * @return mixed
      */
-    public function getRequest(string $uri,array $params);
+    public function getRequest(string $uri, array $params);
 }

@@ -12,23 +12,38 @@ use App\Servises\WeatherServise\WeatherService;
 class WeatherForecastService extends WeatherService implements WeatherServiseInterface
 {
 
-    protected function makeIdForDataBase(string $cityId, string $units):string
+    /**
+     * @param string $cityName
+     * @param string $units
+     * @return string
+     */
+    protected function makeIdForSaving(array $city, string $units):string
     {
-        return $units.$cityId;
+        return $units.$city['name'].$city['countryCode'];
     }
 
     /**
      * @param $cities
      * @return array
      */
-    public function getWeather($city)
+    public function getWeather(array $city, string $units)
     {
-        return [
-            'weather' => collect ($this->getWeatherFromRedis($city['id']) ?? $this->getWeatherFromApi($city,'forecast')),
-            'message' => $this->message ?? null
-        ];
+        return $this->getWeatherFromCash($city,$units) ??
+               $this->getWeatherFromApi($city,$units);
     }
 
+    protected function getUriForRequiest(): string
+    {
+        return $this->config->weather->forecast->uri;
+    }
+
+    protected function getParamsForRequiest(string $units,array $cityName): array
+    {
+        $params = $this->config->weather->params;
+        $params['q'] = $cityName.','.$countryCode;
+        $params['units'] = $units;
+        return $params;
+    }
 
 
 }
