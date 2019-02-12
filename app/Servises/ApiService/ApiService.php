@@ -5,7 +5,6 @@ namespace App\Servises\ApiService;
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use phpDocumentor\Reflection\DocBlock\Tags\Param;
 
 /**
  * Class ApiService

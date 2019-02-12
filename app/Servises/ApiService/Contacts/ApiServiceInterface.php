@@ -16,8 +16,9 @@ namespace App\Servises\ApiService\Contacts;
 interface ApiServiceInterface
 {
     /**
-     * @param $city
+     * @param string $uri
+     * @param array $params
      * @return mixed
      */
-    public function getRequest($id, $url);
+    public function getRequest(string $uri,array $params);
 }

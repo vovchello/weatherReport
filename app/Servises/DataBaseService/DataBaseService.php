@@ -27,21 +27,12 @@ class DataBaseService implements DataBaseServiceInterface
     }
 
     /**
-     * @param $city
-     * @return mixed|null
-     */
-    public function getWeatherForecast($id)
-    {
-        return $this->getWeatherByIdFromBase($id);
-    }
-
-    /**
      * @param $id
      * @return mixed|null
      */
-    private function getWeatherByIdFromBase($id)
+    public function getDataById($id)
     {
-        return json_decode($this->redis->get($id),true) ?? null;
+        return $this->redis->get($id);
     }
 
     /**
