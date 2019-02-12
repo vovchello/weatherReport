@@ -21,7 +21,7 @@ return [
         'uri' => 'https://battuta.medunes.net/api/country/search/',
         'params' =>[
             'query' => [
-                'q' =>'' ,
+                'city' =>'' ,
                 'key' => '80d043d1c5040da4e2a580b67ca82785'
             ],
         ]

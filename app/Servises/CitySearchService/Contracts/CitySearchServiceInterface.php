@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Servises\CitySearchService\Contracts;
+
 /**
  * Interface CitySearchServiceInterface
  */

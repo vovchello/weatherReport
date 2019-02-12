@@ -2,35 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Servises\ApiService\ApiService;
-use App\Servises\FindCitiesService\Contract\FindCitiesServiceInterface;
+use App\Servises\CitySearchService\CitySearchService;
+use App\Servises\CitySearchService\Contracts\CitySearchServiceInterface;
 use App\Servises\WeatherServise\CurrentWeatherService\Contracts\CurrentWeatherServiceInterface;
-use App\Validators\Request\SearchWeatherRequest;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
 
-    private $findCity;
+    private $citySearchService;
 
-    private $weatherServise;
+    private $weatherService;
 
     /**
      * WeatherController constructor.
-     * @param $city
+     * @param CitySearchServiceInterface $citySearchService
+     * @param CurrentWeatherServiceInterface $weatherServise
      */
-    public function __construct(FindCitiesServiceInterface $findCity, ApiService $weatherServise)
+    public function __construct(CitySearchService $citySearchService)
     {
-        $this->findCity = $findCity;
-        $this->weatherServise = $weatherServise;
+        $this->citySearchService = $citySearchService;
+//        $this->weatherService = $weatherService;
     }
 
     public function index(Request $request)
     {
-        $cities = $this->findCity->findCity($request->city);
-        foreach ($cities as $city){
-            $weather[] = $this->weatherServise->getRequest($city['id'],config('weatherReport.weatherservice.current.uri'));
-        }
-        return $weather;
+        $cities = $this->citySearchService->search($request->city);
+        dd($cities);
     }
 }

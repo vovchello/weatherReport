@@ -1,6 +1,9 @@
 <?php
 
+namespace App\Servises\CitySearchService;
+
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
+use App\Servises\CitySearchService\Contracts\CitySearchServiceInterface;
 
 class CitySearchService implements CitySearchServiceInterface
 {
@@ -25,24 +28,38 @@ class CitySearchService implements CitySearchServiceInterface
 
     /**
      * @param $cityName
-     * @return mixed|void
+     * @return mixed
      */
-    public function search(string $cityName)
+    public function search(string $cityName):array
     {
-        return json_decode($this->api->getRequest($this->getUri(),$this->getParams($cityName)));
+        return $this->parseResponse(
+            json_decode($this->api->getRequest(
+                $this->getUri(),$this->getParams($cityName))
+            ),
+            $cityName
+        );
     }
 
     private function getParams(string $cityName)
     {
-        $params = $this->config->params;
-        $params['q'] = $cityName;
+        $params = $this->config['params'];
+        $params['query']['city'] = $cityName;
         return $params;
     }
 
     private function getUri()
     {
-        return $this->config->uri;
+        return $this->config['uri'];
     }
+
+    private function parseResponse(array $cityList, string $cityName)
+    {
+        foreach ($cityList as $city){
+            $city->name = $cityName;
+        }
+        return $cityList;
+    }
+
 
 
 
