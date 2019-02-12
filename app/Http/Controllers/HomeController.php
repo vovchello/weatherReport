@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Servises\FindCitiesService\FindCitiesService;
 use App\Servises\JsonService\Contracts\JsonSserviceInterface;
 use App\Servises\ApiService\Contacts\WeatherServiceInterface;
 
@@ -12,6 +13,8 @@ use App\Servises\ApiService\Contacts\WeatherServiceInterface;
  */
 class HomeController extends Controller
 {
+
+
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

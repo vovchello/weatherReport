@@ -5,6 +5,7 @@ namespace App\Servises\ApiService;
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
 
 /**
  * Class ApiService
@@ -27,18 +28,17 @@ class ApiService implements ApiServiceInterface
     }
 
 
-    public function getRequest($id, $url)
+    /**
+     * @param $url
+     * @param $params
+     * @return mixed|string
+     */
+    public function getRequest($url, $params)
     {
         try {
-            $request = $this->client->request('get', $url, [
-                'query' => [
-                    'id' => $id,
-                    'units' => 'metric',
-                    'appid' => config('weatherReport.weatherservice.appid')
-                ]
-            ]);
+            $request = $this->client->request('get', $url, $params);
         } catch (GuzzleException $e) {
-            dd('lol');
+            return $e->getMessage();
         }
         return $request->getBody()->getContents();
     }

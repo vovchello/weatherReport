@@ -10,7 +10,7 @@ use App\Servises\JsonService\Contracts\JsonSserviceInterface;
  * Class FindCitiesService
  * @package App\Servises\FindCitiesService
  */
-class FindCitiesService implements FindCitiesServiceInterface
+class FindCitiesService
 {
 
     /**
@@ -36,26 +36,17 @@ class FindCitiesService implements FindCitiesServiceInterface
     /**
      * @return \Illuminate\Support\Collection
      */
-    private function getCities()
+    public function getDecodeFile()
     {
         return $this->jsonService->getFile($this->file['path']);
     }
 
-    public function getCityById($id)
+    public function saveFileToTheBase()
     {
-        $cities = $this->getCities();
-        return $cities->where('id',$id)->first();
+        $file = $this->getDecodeFile();
+
     }
 
-    /**
-     * @param string $data
-     * @return \Illuminate\Support\Collection
-     */
-    public function findCity(string $data)
-    {
-        $cities = $this->getCities();
-        return $cities->where('name', ucfirst(strtolower($data)));
-    }
 
 
 
