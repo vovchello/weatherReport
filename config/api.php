@@ -19,10 +19,12 @@ return [
     ],
     'city' =>[
         'uri' => 'https://battuta.medunes.net/api/country/search/',
-        'query' => [
-            'q' =>'' ,
-            'key' => '80d043d1c5040da4e2a580b67ca82785'
-        ],
+        'params' =>[
+            'query' => [
+                'q' =>'' ,
+                'key' => '80d043d1c5040da4e2a580b67ca82785'
+            ],
+        ]
     ]
 
 
