@@ -17,31 +17,31 @@ class WeatherForecastService extends WeatherService implements WeatherServiseInt
      * @param string $units
      * @return string
      */
-    protected function makeIdForSaving(array $city, string $units):string
+    protected function makeIdForSaving($city, string $units):string
     {
-        return $units.$city['name'].$city['countryCode'];
+        return $units.$city->name.$city->code;
     }
 
-    /**
-     * @param $cities
-     * @return array
-     */
-    public function getWeather(array $city, string $units)
-    {
-        return $this->getWeatherFromCash($city,$units) ??
-               $this->getWeatherFromApi($city,$units);
-    }
+//    /**
+//     * @param $cities
+//     * @return array
+//     */
+//    public function getWeather(array $city, string $units)
+//    {
+//        return $this->getWeatherFromCash($city,$units) ??
+//               $this->getWeatherFromApi($city,$units);
+//    }
 
     protected function getUriForRequiest(): string
     {
-        return $this->config->weather->forecast->uri;
+        return $this->config['forecast']['uri'];
     }
 
-    protected function getParamsForRequiest(string $units,array $cityName): array
+    protected function getParamsForRequiest(string $units, $city): array
     {
-        $params = $this->config->weather->params;
-        $params['q'] = $cityName.','.$countryCode;
-        $params['units'] = $units;
+        $params = $this->config['params'];
+        $params['query']['q'] = $city->name.','.$city->code;
+        $params['query']['units'] = $units;
         return $params;
     }
 

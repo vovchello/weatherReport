@@ -29,7 +29,7 @@ abstract class WeatherService
     /**
      *
      */
-    protected const CONFIG_FILE = 'api';
+    protected const CONFIG_FILE = 'api.weather';
 
     /**
      * @var \Illuminate\Config\Repository|mixed
@@ -67,18 +67,18 @@ abstract class WeatherService
      * @param string $units
      * @return string
      */
-    abstract protected function makeIdForSaving(array $city, string $units):string;
+    abstract protected function makeIdForSaving($city, string $units):string;
 
     /**
      * @param string $name
      * @param string $units
      * @return mixed
      */
-    protected function getWeatherFromApi(array $city, string $units)
+    protected function getWeatherFromApi($city, string $units)
     {
         $weather = $this->apiService
                         ->getRequest($this->getUriForRequiest(), $this->getParamsForRequiest($units, $city));
-        $this->saveWeather($this->makeIdForSaving($city,$units),$weather);
+        $weather == null ?:$this->saveWeather($this->makeIdForSaving($city,$units),$weather);
         unset($this->message);
         return $weather;
     }
@@ -88,8 +88,9 @@ abstract class WeatherService
      * @param string $units
      * @return mixed|null
      */
-    protected function getWeatherFromCash(array $city, string $units)
+    protected function getWeatherFromCash($city, string $units)
     {
+        $this->message = "from cash";
         return $this->cashService->getDataById($this->makeIdForSaving($city,$units));
     }
 
@@ -99,7 +100,7 @@ abstract class WeatherService
      * @param string $units
      * @return array
      */
-    abstract public function getWeather(array $city, string $units);
+//    abstract public function getWeather(array $city, string $units);
 
     /**
      * @return string
@@ -110,6 +111,19 @@ abstract class WeatherService
      * @param string $units
      * @return array
      */
-    abstract protected function getParamsForRequiest(string $units,array $city):array;
+    abstract protected function getParamsForRequiest(string $units,$city):array;
+
+    /**
+     * @param $cities
+     * @return array
+     */
+    public function getWeather(array$city,string $units)
+    {
+        foreach ($city as $name){
+            $result = $this->getWeatherFromCash($name, $units) ?? $this->getWeatherFromApi($name,$units);
+            $result === null ?:$weather[]=$result;
+        }
+        return ['weather' => $weather, 'message' => $this->message ?? null];
+    }
 
 }

@@ -19,15 +19,16 @@ class AjaxController extends Controller
      * @param CitySearchServiceInterface $citySearchService
      * @param CurrentWeatherServiceInterface $weatherServise
      */
-    public function __construct(CitySearchService $citySearchService)
+    public function __construct(CitySearchService $citySearchService,CurrentWeatherServiceInterface $weatherService)
     {
         $this->citySearchService = $citySearchService;
-//        $this->weatherService = $weatherService;
+        $this->weatherService = $weatherService;
     }
 
-    public function index(Request $request)
+    public function currentWeather(Request $request)
     {
         $cities = $this->citySearchService->search($request->city);
-        dd($cities);
+        $weather = $this->weatherService->getWeather($cities,'metric');
+        return $weather;
     }
 }

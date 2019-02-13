@@ -21,34 +21,23 @@ class CurrentWeatherService extends WeatherService implements CurrentWeatherServ
      * @param string $units
      * @return string
      */
-    protected function makeIdForDataBase(string $cityId, string $units):string
+    protected function makeIdForSaving($city, string $units):string
     {
-        return 'current'.$units.$cityId;
+        return 'current'.$units.$city->name.$city->code;
     }
 
-    /**
-     * @param $cities
-     * @return array
-     */
-    public function getWeather(array $city,string $units)
-    {
-        $weather = collect();
-        foreach ($city as $name){
-            $weather->push($this->getWeatherFromCash($name, $units) ?? $this->getWeatherFromApi($name,$units));
-        }
-        return ['weather' => $weather, 'message' => $this->message ?? null];
-    }
+
 
     protected function getUriForRequiest(): string
     {
-        return $this->config->weather->current->uri;
+        return $this->config['current']['uri'];
     }
 
-    protected function getParamsForRequiest(string $units,array $city): array
+    protected function getParamsForRequiest(string $units,$city): array
     {
-        $params = $this->config->weather->params;
-        $params['q'] = $city['name'].','.$city['countryCode'];
-        $params['units'] = $units;
+        $params = $this->config['params'];
+        $params['query']['q'] = $city->name.','.$city->code;
+        $params['query']['units'] = $units;
         return $params;
     }
 }
