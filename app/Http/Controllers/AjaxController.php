@@ -28,6 +28,7 @@ class AjaxController extends Controller
     public function currentWeather(Request $request)
     {
         $cities = $this->citySearchService->search($request->city);
+//        dd($cities);
         $weather = $this->weatherService->getWeather($cities,'metric');
         return $weather;
     }

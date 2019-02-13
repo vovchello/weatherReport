@@ -4,14 +4,7 @@ namespace App\Servises\WeatherServise;
 
 use App\Servises\ApiService\Contacts\ApiServiceInterface;
 use App\Servises\CashService\CashService;
-
-
-/**
- * Created by PhpStorm.
- * User: panda
- * Date: 09.02.19
- * Time: 0:39
- */
+use Psy\Exception\ErrorException;
 
 abstract class WeatherService
 {
@@ -100,7 +93,6 @@ abstract class WeatherService
      * @param string $units
      * @return array
      */
-//    abstract public function getWeather(array $city, string $units);
 
     /**
      * @return string
@@ -117,13 +109,18 @@ abstract class WeatherService
      * @param $cities
      * @return array
      */
-    public function getWeather(array$city,string $units)
+    public function getWeather(array $city,string $units)
     {
-        foreach ($city as $name){
-            $result = $this->getWeatherFromCash($name, $units) ?? $this->getWeatherFromApi($name,$units);
-            $result === null ?:$weather[]=$result;
+        try{
+            foreach ($city as $name) {
+                $result = $this->getWeatherFromCash($name, $units) ?? $this->getWeatherFromApi($name, $units);
+                $result === null ?: $weather[] = $result;
+            }
+            return ['weather' => $weather, 'message' => $this->message ?? null];
+        }catch(ErrorException $e){
+            $e->getMessage();
         }
-        return ['weather' => $weather, 'message' => $this->message ?? null];
+
     }
 
 }

@@ -22,16 +22,6 @@ class WeatherForecastService extends WeatherService implements WeatherServiseInt
         return $units.$city->name.$city->code;
     }
 
-//    /**
-//     * @param $cities
-//     * @return array
-//     */
-//    public function getWeather(array $city, string $units)
-//    {
-//        return $this->getWeatherFromCash($city,$units) ??
-//               $this->getWeatherFromApi($city,$units);
-//    }
-
     protected function getUriForRequiest(): string
     {
         return $this->config['forecast']['uri'];
