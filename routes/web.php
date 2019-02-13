@@ -1,5 +1,5 @@
 <?php
 
 Route::get('/','HomeController@index');
-Route::post('weather','WeatherController@index')->name('weather');
-Route::get('refined_weather/{id}','RefinedWeatherController@index')->name('refined_weather');
+Route::get('ajax/current','AjaxController@currentWeather')->name('ajaxCurrent');
+Route::get('refined_weather/{name}/{country}','WeatherController@index')->name('refined_weather');

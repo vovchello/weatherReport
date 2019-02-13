@@ -16,14 +16,9 @@ namespace App\Servises\ApiService\Contacts;
 interface ApiServiceInterface
 {
     /**
-     * @param $city
+     * @param string $uri
+     * @param array $params
      * @return mixed
      */
-    public function getCurrentWeather($city);
-
-    /**
-     * @param $city
-     * @return mixed
-     */
-    public function getWeatherForecast($city);
+    public function getRequest(string $uri, array $params);
 }
